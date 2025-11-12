@@ -1,0 +1,12 @@
+node_modules
+dist
+build
+coverage
+*.tgz
+.cache
+.eslintcache
+*.tsbuildinfo
+bun.lock
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
