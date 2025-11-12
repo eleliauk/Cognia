@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "@cognia/shared": ["../../packages/shared/src/index.ts"],
+      "@cognia/shared/*": ["../../packages/shared/src/*"],
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "build"]
+}

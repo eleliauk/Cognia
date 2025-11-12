@@ -1,0 +1,26 @@
+{
+  "name": "cognia",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "bun run dev:all",
+    "dev:all": "bun run --filter backend dev & bun run --filter frontend dev",
+    "dev:backend": "bun run --filter backend dev",
+    "dev:frontend": "bun run --filter frontend dev",
+    "start": "bun run start:all",
+    "start:all": "bun run --filter backend start & bun run --filter frontend start",
+    "start:backend": "bun run --filter backend start",
+    "start:frontend": "bun run --filter frontend start",
+    "build": "bun run --filter frontend build",
+    "clean": "rm -rf apps/*/node_modules packages/*/node_modules node_modules",
+    "install:all": "bun install"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
