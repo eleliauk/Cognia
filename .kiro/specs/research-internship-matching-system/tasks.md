@@ -7,7 +7,7 @@
   - 配置开发环境的 Docker Compose（PostgreSQL、Redis）
   - _需求: 13_
 
-- [ ] 2. 数据库设计与初始化
+- [x] 2. 数据库设计与初始化
   - 编写 Prisma schema 定义所有数据模型
   - 创建数据库迁移文件
   - 设置数据库索引和约束
