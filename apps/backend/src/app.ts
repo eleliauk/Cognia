@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import { errorHandler } from './middleware/errorHandler';
 import { apiLimiter } from './middleware/rateLimiter';
 import authRoutes from './routes/authRoutes';
+import teacherRoutes from './routes/teacherRoutes';
+import studentRoutes from './routes/studentRoutes';
 
 const app = express();
 
@@ -39,6 +41,8 @@ app.get('/api/health', (_req, res) => {
 
 // API routes
 app.use('/api/auth', authRoutes);
+app.use('/api/teachers', teacherRoutes);
+app.use('/api/students', studentRoutes);
 // app.use('/api/projects', projectRoutes);
 // app.use('/api/applications', applicationRoutes);
 // etc.
