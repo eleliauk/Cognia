@@ -5,6 +5,7 @@ import type {
   UpdateProjectInput,
   SearchProjectsInput,
 } from '../validators/projectValidators';
+import { matchingCache } from './matchingCache.js';
 
 export class ProjectService {
   constructor(private prisma: PrismaClient) {}
@@ -74,6 +75,9 @@ export class ProjectService {
         },
       },
     });
+
+    // Invalidate matching cache when project is updated
+    await matchingCache.invalidateProjectCache(projectId);
 
     return project;
   }
@@ -313,6 +317,9 @@ export class ProjectService {
         },
       },
     });
+
+    // Invalidate matching cache when project status changes
+    await matchingCache.invalidateProjectCache(projectId);
 
     return project;
   }

@@ -46,20 +46,20 @@
   - 实现教师查看自己项目列表的接口
   - _需求: 2, 12_
 
-- [ ] 6. LangChain 智能匹配引擎
-- [ ] 6.1 LangChain 基础配置
+- [x] 6. LangChain 智能匹配引擎
+- [x] 6.1 LangChain 基础配置
   - 安装 LangChain 相关依赖（@langchain/openai, @langchain/core）
   - 创建 LLM 配置文件支持多提供商（Deepseek、openrouter、OpenAI）
   - 实现环境变量配置和提供商选择逻辑
   - _需求: 15_
 
-- [ ] 6.2 匹配提示词和解析器
+- [x] 6.2 匹配提示词和解析器
   - 使用 PromptTemplate 创建匹配提示词模板
   - 使用 Zod 定义匹配结果的输出结构
   - 创建 StructuredOutputParser 解析 LLM 响应
   - _需求: 4, 15_
 
-- [ ] 6.3 匹配引擎核心逻辑
+- [x] 6.3 匹配引擎核心逻辑
   - 实现 LangChainMatchingEngine 类
   - 实现 calculateMatchScore 方法调用 LLM
   - 实现关键词匹配降级策略
@@ -68,13 +68,13 @@
   - 添加超时和重试机制
   - _需求: 4, 15_
 
-- [ ] 6.4 匹配结果缓存
+- [x] 6.4 匹配结果缓存
   - 集成 Redis 缓存匹配结果
   - 实现缓存键生成和过期策略（1 小时）
   - 实现缓存失效逻辑（档案更新时）
   - _需求: 4_
 
-- [ ] 7. 申请管理模块
+- [x] 7. 申请管理模块
   - 实现申请提交 API
   - 实现重复申请检查逻辑
   - 实现申请状态更新接口

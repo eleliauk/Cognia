@@ -7,6 +7,8 @@ import authRoutes from './routes/authRoutes';
 import teacherRoutes from './routes/teacherRoutes';
 import studentRoutes from './routes/studentRoutes';
 import projectRoutes from './routes/projectRoutes';
+import matchingRoutes from './routes/matchingRoutes';
+import applicationRoutes from './routes/applicationRoutes';
 
 const app = express();
 
@@ -45,8 +47,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/teachers', teacherRoutes);
 app.use('/api/students', studentRoutes);
 app.use('/api/projects', projectRoutes);
-// app.use('/api/applications', applicationRoutes);
-// etc.
+app.use('/api/matching', matchingRoutes);
+app.use('/api/applications', applicationRoutes);
 
 // 404 handler
 app.use((_req, res) => {

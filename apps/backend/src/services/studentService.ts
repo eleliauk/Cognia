@@ -6,6 +6,7 @@ import type {
   CreateProjectExperienceDTO,
   UpdateProjectExperienceDTO,
 } from '../validators/studentValidators';
+import { matchingCache } from './matchingCache.js';
 
 const prisma = new PrismaClient();
 
@@ -232,6 +233,9 @@ export class StudentService {
       },
     });
 
+    // Invalidate matching cache when profile is updated
+    await matchingCache.invalidateStudentCache(userId);
+
     return profile;
   }
 
@@ -282,6 +286,9 @@ export class StudentService {
       });
     }
 
+    // Invalidate matching cache when project experience is added
+    await matchingCache.invalidateStudentCache(userId);
+
     return experience;
   }
 
@@ -326,6 +333,9 @@ export class StudentService {
         ...(data.achievements !== undefined && { achievements: data.achievements }),
       },
     });
+
+    // Invalidate matching cache when project experience is updated
+    await matchingCache.invalidateStudentCache(userId);
 
     return updatedExperience;
   }
@@ -376,6 +386,9 @@ export class StudentService {
         data: { completeness },
       });
     }
+
+    // Invalidate matching cache when project experience is deleted
+    await matchingCache.invalidateStudentCache(userId);
   }
 
   /**
