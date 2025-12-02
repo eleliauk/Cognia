@@ -19,6 +19,7 @@ export function authMiddleware(req: AuthRequest, _res: Response, next: NextFunct
 
     // Attach user to request
     req.user = {
+      id: payload.userId,
       userId: payload.userId,
       email: payload.email,
       role: payload.role as UserRole,

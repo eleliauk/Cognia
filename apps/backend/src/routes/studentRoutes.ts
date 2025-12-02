@@ -57,4 +57,16 @@ router.get('/', studentController.getAllProfiles.bind(studentController));
 // 根据用户ID获取学生档案
 router.get('/:userId/profile', studentController.getProfileByUserId.bind(studentController));
 
+// 获取学生的实习列表
+router.get('/:studentId/internships', async (req, res, next) => {
+  const { internshipController } = await import('../controllers/internshipController');
+  return internshipController.getInternshipsByStudent(req, res, next);
+});
+
+// 获取学生的所有评价
+router.get('/:studentId/evaluations', async (req, res, next) => {
+  const { evaluationController } = await import('../controllers/evaluationController');
+  return evaluationController.getEvaluationsByStudent(req, res, next);
+});
+
 export default router;

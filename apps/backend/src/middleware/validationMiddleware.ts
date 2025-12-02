@@ -23,3 +23,48 @@ export function validateRequest(schema: ZodSchema, source: 'body' | 'query' = 'b
     }
   };
 }
+
+/**
+ * Middleware to validate request query parameters against a Zod schema
+ */
+export function validateQuery(schema: ZodSchema) {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    try {
+      const validated = schema.parse(req.query);
+      req.query = validated as any;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+/**
+ * Middleware to validate request params against a Zod schema
+ */
+export function validateParams(schema: ZodSchema) {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    try {
+      const validated = schema.parse(req.params);
+      req.params = validated as any;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+}
+
+/**
+ * Middleware to validate request body against a Zod schema
+ */
+export function validateBody(schema: ZodSchema) {
+  return (req: Request, _res: Response, next: NextFunction) => {
+    try {
+      const validated = schema.parse(req.body);
+      req.body = validated;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  };
+}

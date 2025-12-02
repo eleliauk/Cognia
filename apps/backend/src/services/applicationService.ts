@@ -6,6 +6,7 @@ import type {
   QueryApplicationsInput,
 } from '../validators/applicationValidators';
 import { MatchingEngine } from './matchingEngine';
+import { notificationService } from './notificationService';
 
 export class ApplicationService {
   private matchingEngine: MatchingEngine;
@@ -114,8 +115,18 @@ export class ApplicationService {
       },
     });
 
-    // TODO: 发送通知给教师
-    // await notificationService.notifyTeacher(project.teacherId, application);
+    // 发送通知给教师
+    try {
+      await notificationService.notifyApplicationSubmitted(
+        application.project.teacher.id,
+        application.student.name,
+        application.project.title,
+        application.id
+      );
+    } catch (error) {
+      console.error('Failed to send notification:', error);
+      // 通知发送失败不影响申请提交
+    }
 
     return application;
   }
@@ -218,8 +229,20 @@ export class ApplicationService {
       },
     });
 
-    // TODO: 发送通知给学生
-    // await notificationService.notifyStudent(application.studentId, updatedApplication);
+    // 发送通知给学生
+    if (data.status === 'ACCEPTED' || data.status === 'REJECTED') {
+      try {
+        await notificationService.notifyApplicationReviewed(
+          updatedApplication.student.id,
+          updatedApplication.project.title,
+          data.status as 'ACCEPTED' | 'REJECTED',
+          updatedApplication.id
+        );
+      } catch (error) {
+        console.error('Failed to send notification:', error);
+        // 通知发送失败不影响状态更新
+      }
+    }
 
     return updatedApplication;
   }

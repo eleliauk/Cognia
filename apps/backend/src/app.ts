@@ -9,6 +9,11 @@ import studentRoutes from './routes/studentRoutes';
 import projectRoutes from './routes/projectRoutes';
 import matchingRoutes from './routes/matchingRoutes';
 import applicationRoutes from './routes/applicationRoutes';
+import internshipRoutes from './routes/internshipRoutes';
+import evaluationRoutes from './routes/evaluationRoutes';
+import notificationRoutes from './routes/notificationRoutes';
+import analyticsRoutes from './routes/analyticsRoutes';
+import adminRoutes from './routes/adminRoutes';
 
 const app = express();
 
@@ -26,6 +31,9 @@ app.use(
 // Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve uploaded files
+app.use('/uploads', express.static(process.env.UPLOAD_DIR || 'uploads'));
 
 // Rate limiting for all API routes
 app.use('/api', apiLimiter);
@@ -49,6 +57,11 @@ app.use('/api/students', studentRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/matching', matchingRoutes);
 app.use('/api/applications', applicationRoutes);
+app.use('/api/internships', internshipRoutes);
+app.use('/api/evaluations', evaluationRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((_req, res) => {
