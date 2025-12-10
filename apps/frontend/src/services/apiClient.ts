@@ -2,7 +2,8 @@ import axios, { type AxiosError, type AxiosResponse, type InternalAxiosRequestCo
 import { useAuthStore } from '@/stores';
 
 // API base URL from environment or default
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_BASE_URL =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL) || 'http://localhost:3000';
 
 // Error codes for typed error handling
 export enum ApiErrorCode {

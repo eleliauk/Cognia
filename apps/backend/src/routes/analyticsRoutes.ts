@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { authMiddleware } from '../middleware/authMiddleware.js';
+import { validateQuery, validateParams } from '../middleware/validationMiddleware.js';
+import { timeRangeQuerySchema, teacherIdParamSchema } from '../validators/analyticsValidators.js';
 import {
   getTeacherDashboard,
   getAdminDashboard,
@@ -18,7 +20,12 @@ router.use(authMiddleware);
  * @query   startDate - Optional start date for time range filter (ISO string)
  * @query   endDate - Optional end date for time range filter (ISO string)
  */
-router.get('/teacher/:id', getTeacherDashboard);
+router.get(
+  '/teacher/:id',
+  validateParams(teacherIdParamSchema),
+  validateQuery(timeRangeQuerySchema),
+  getTeacherDashboard
+);
 
 /**
  * @route   GET /api/analytics/admin
@@ -27,7 +34,7 @@ router.get('/teacher/:id', getTeacherDashboard);
  * @query   startDate - Optional start date for time range filter (ISO string)
  * @query   endDate - Optional end date for time range filter (ISO string)
  */
-router.get('/admin', getAdminDashboard);
+router.get('/admin', validateQuery(timeRangeQuerySchema), getAdminDashboard);
 
 /**
  * @route   GET /api/analytics/matching
@@ -36,6 +43,6 @@ router.get('/admin', getAdminDashboard);
  * @query   startDate - Optional start date for time range filter (ISO string)
  * @query   endDate - Optional end date for time range filter (ISO string)
  */
-router.get('/matching', getMatchingMetrics);
+router.get('/matching', validateQuery(timeRangeQuerySchema), getMatchingMetrics);
 
 export default router;

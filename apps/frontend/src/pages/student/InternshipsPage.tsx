@@ -114,7 +114,7 @@ export default function InternshipsPage() {
     if (!file || !selectedInternship) return;
 
     try {
-      setUploading(true);
+      setLoading(true);
       await studentService.uploadDocument(selectedInternship.id, file);
       toast({
         title: '上传成功',
@@ -138,7 +138,7 @@ export default function InternshipsPage() {
         variant: 'destructive',
       });
     } finally {
-      setUploading(false);
+      setLoading(false);
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }

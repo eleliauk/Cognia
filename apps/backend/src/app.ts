@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { errorHandler } from './middleware/errorHandler';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler';
 import { apiLimiter } from './middleware/rateLimiter';
 import authRoutes from './routes/authRoutes';
 import teacherRoutes from './routes/teacherRoutes';
@@ -64,12 +64,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
 
 // 404 handler
-app.use((_req, res) => {
-  res.status(404).json({
-    success: false,
-    error: 'Not found',
-  });
-});
+app.use(notFoundHandler);
 
 // Error handler (must be last)
 app.use(errorHandler);

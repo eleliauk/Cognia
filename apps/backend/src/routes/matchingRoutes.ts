@@ -6,6 +6,11 @@ import {
   clearCaches,
 } from '../controllers/matchingController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
+import { validateParams, validateQuery } from '../middleware/validationMiddleware.js';
+import {
+  projectIdParamSchema,
+  recommendationsQuerySchema,
+} from '../validators/matchingValidators.js';
 
 const router = Router();
 
@@ -17,14 +22,22 @@ router.use(authMiddleware);
  * @desc    Get recommended projects for the authenticated student
  * @access  Student only
  */
-router.get('/recommendations', getStudentRecommendations);
+router.get(
+  '/recommendations',
+  validateQuery(recommendationsQuerySchema),
+  getStudentRecommendations
+);
 
 /**
  * @route   GET /api/matching/projects/:projectId/students
  * @desc    Get matched students for a specific project
  * @access  Teacher only (project owner)
  */
-router.get('/projects/:projectId/students', getProjectMatches);
+router.get(
+  '/projects/:projectId/students',
+  validateParams(projectIdParamSchema),
+  getProjectMatches
+);
 
 /**
  * @route   GET /api/matching/cache/stats

@@ -3,7 +3,7 @@ import { useAuthStore } from '@/stores';
 import { useNotificationStore, type Notification } from '@/stores/notificationStore';
 
 // Socket.io server URL
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
+const SOCKET_URL = 'http://localhost:3000';
 
 class SocketService {
   private socket: Socket | null = null;
