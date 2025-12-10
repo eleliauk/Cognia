@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '@/stores';
 import { Button } from '@/components/ui/button';
+import { NotificationBell } from '@/components/notifications';
 import { cn } from '@/lib/utils';
 
 interface HeaderProps {
@@ -90,6 +91,9 @@ export function Header({ onMenuToggle, isSidebarOpen }: HeaderProps) {
 
         {/* Spacer */}
         <div className="flex-1" />
+
+        {/* Notifications */}
+        {user && <NotificationBell />}
 
         {/* User menu */}
         {user && (

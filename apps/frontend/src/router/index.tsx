@@ -18,8 +18,17 @@ const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'));
 
 // Dashboard pages
 const TeacherDashboard = lazy(() => import('@/pages/teacher/Dashboard'));
+const TeacherProjectsPage = lazy(() => import('@/pages/teacher/ProjectsPage'));
+const TeacherApplicationsPage = lazy(() => import('@/pages/teacher/ApplicationsPage'));
+const TeacherInternshipsPage = lazy(() => import('@/pages/teacher/InternshipsPage'));
 const StudentDashboard = lazy(() => import('@/pages/student/Dashboard'));
+const StudentProfilePage = lazy(() => import('@/pages/student/ProfilePage'));
+const StudentRecommendationsPage = lazy(() => import('@/pages/student/RecommendationsPage'));
+const StudentApplicationsPage = lazy(() => import('@/pages/student/ApplicationsPage'));
+const StudentInternshipsPage = lazy(() => import('@/pages/student/InternshipsPage'));
 const AdminDashboard = lazy(() => import('@/pages/admin/Dashboard'));
+const AdminUsersPage = lazy(() => import('@/pages/admin/UsersPage'));
+const AdminMonitoringPage = lazy(() => import('@/pages/admin/MonitoringPage'));
 
 // Not found page
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'));
@@ -125,7 +134,7 @@ export const router = createBrowserRouter([
             path: 'projects',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">项目管理页面待实现</div>
+                <TeacherProjectsPage />
               </Suspense>
             ),
           },
@@ -133,7 +142,7 @@ export const router = createBrowserRouter([
             path: 'applications',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">申请管理页面待实现</div>
+                <TeacherApplicationsPage />
               </Suspense>
             ),
           },
@@ -141,7 +150,7 @@ export const router = createBrowserRouter([
             path: 'internships',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">实习跟踪页面待实现</div>
+                <TeacherInternshipsPage />
               </Suspense>
             ),
           },
@@ -178,7 +187,7 @@ export const router = createBrowserRouter([
             path: 'recommendations',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">推荐项目页面待实现</div>
+                <StudentRecommendationsPage />
               </Suspense>
             ),
           },
@@ -186,7 +195,7 @@ export const router = createBrowserRouter([
             path: 'profile',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">个人档案页面待实现</div>
+                <StudentProfilePage />
               </Suspense>
             ),
           },
@@ -194,7 +203,7 @@ export const router = createBrowserRouter([
             path: 'applications',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">我的申请页面待实现</div>
+                <StudentApplicationsPage />
               </Suspense>
             ),
           },
@@ -202,7 +211,7 @@ export const router = createBrowserRouter([
             path: 'internships',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">我的实习页面待实现</div>
+                <StudentInternshipsPage />
               </Suspense>
             ),
           },
@@ -231,7 +240,7 @@ export const router = createBrowserRouter([
             path: 'users',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">用户管理页面待实现</div>
+                <AdminUsersPage />
               </Suspense>
             ),
           },
@@ -239,23 +248,7 @@ export const router = createBrowserRouter([
             path: 'monitoring',
             element: (
               <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">系统监控页面待实现</div>
-              </Suspense>
-            ),
-          },
-          {
-            path: 'analytics',
-            element: (
-              <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">数据统计页面待实现</div>
-              </Suspense>
-            ),
-          },
-          {
-            path: 'audit-logs',
-            element: (
-              <Suspense fallback={<PageLoader />}>
-                <div className="text-muted-foreground">审计日志页面待实现</div>
+                <AdminMonitoringPage />
               </Suspense>
             ),
           },
