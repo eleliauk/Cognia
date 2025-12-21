@@ -37,6 +37,26 @@ export interface MatchResult {
 }
 
 /**
+ * Project recommendation interface for frontend
+ */
+export interface ProjectRecommendation {
+  project: Project & {
+    teacher: {
+      id: string;
+      name: string;
+      email: string;
+      teacherProfile?: {
+        department: string;
+        title: string;
+      } | null;
+    };
+  };
+  score: number;
+  reasoning: string;
+  matchedSkills: string[];
+}
+
+/**
  * LangChain-based matching engine for intelligent student-project matching
  */
 export class MatchingEngine {
@@ -170,14 +190,10 @@ export class MatchingEngine {
    * Match a student to multiple projects and return ranked results
    * Uses cache to avoid recalculating matches
    */
-  async matchStudentToProjects(studentId: string, limit: number = 10): Promise<MatchResult[]> {
-    // Check cache first
-    const cached = await matchingCache.getCachedStudentMatches(studentId);
-    if (cached) {
-      console.log(`✅ Cache hit for student matches: ${studentId}`);
-      return cached.slice(0, limit);
-    }
-
+  async matchStudentToProjects(
+    studentId: string,
+    limit: number = 10
+  ): Promise<ProjectRecommendation[]> {
     // Get student profile with experiences
     const student = await this.prisma.studentProfile.findUnique({
       where: { userId: studentId },
@@ -188,9 +204,24 @@ export class MatchingEngine {
       throw new AppError('NOT_FOUND', '学生档案不存在', 404);
     }
 
-    // Get all active projects
+    // Get all active projects with teacher info
     const projects = await this.prisma.project.findMany({
       where: { status: 'ACTIVE' },
+      include: {
+        teacher: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            teacherProfile: {
+              select: {
+                department: true,
+                title: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     if (projects.length === 0) {
@@ -202,25 +233,16 @@ export class MatchingEngine {
       projects.map(async (project) => {
         const score = await this.calculateMatchScore(student, project);
         return {
-          projectId: project.id,
-          studentId,
+          project,
           score: score.overall,
           reasoning: score.reasoning,
           matchedSkills: score.matchedSkills,
-          suggestions: score.suggestions,
-          timestamp: new Date(),
         };
       })
     );
 
-    // Sort by score descending
-    const sortedMatches = matches.sort((a, b) => b.score - a.score);
-
-    // Cache the full results
-    await matchingCache.cacheStudentMatches(studentId, sortedMatches);
-
-    // Return top N
-    return sortedMatches.slice(0, limit);
+    // Sort by score descending and return top N
+    return matches.sort((a, b) => b.score - a.score).slice(0, limit);
   }
 
   /**

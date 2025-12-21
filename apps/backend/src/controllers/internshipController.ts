@@ -5,6 +5,43 @@ import { InternshipStatus } from '@prisma/client';
 
 export class InternshipController {
   /**
+   * Get my internships (based on user role)
+   * GET /api/internships
+   */
+  async getMyInternships(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const userId = req.user!.userId;
+      const userRole = req.user!.role;
+
+      let internships;
+
+      if (userRole === 'STUDENT') {
+        internships = await internshipService.getInternshipsByStudent(userId);
+      } else if (userRole === 'TEACHER') {
+        internships = await internshipService.getInternshipsByTeacher(userId);
+      } else if (userRole === 'ADMIN') {
+        internships = await internshipService.getAllInternships();
+      } else {
+        return res.status(403).json({
+          success: false,
+          error: {
+            code: 'FORBIDDEN',
+            message: 'Invalid user role',
+          },
+        });
+      }
+
+      res.json({
+        success: true,
+        data: internships,
+        count: internships.length,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
    * Create internship record
    * POST /api/internships
    */

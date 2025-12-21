@@ -166,9 +166,11 @@ export default function StudentDashboard() {
           <CardContent>
             {recommendations.length > 0 ? (
               <div className="space-y-3">
-                {recommendations.map((rec) => (
-                  <RecommendationCard key={rec.project.id} recommendation={rec} />
-                ))}
+                {recommendations
+                  .filter((rec) => rec?.project?.id)
+                  .map((rec) => (
+                    <RecommendationCard key={rec.project.id} recommendation={rec} />
+                  ))}
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
@@ -200,9 +202,11 @@ export default function StudentDashboard() {
           <CardContent>
             {recentApplications.length > 0 ? (
               <div className="space-y-3">
-                {recentApplications.map((app) => (
-                  <ApplicationCard key={app.id} application={app} />
-                ))}
+                {recentApplications
+                  .filter((app) => app?.id)
+                  .map((app) => (
+                    <ApplicationCard key={app.id} application={app} />
+                  ))}
               </div>
             ) : (
               <div className="text-center py-8 text-muted-foreground">
