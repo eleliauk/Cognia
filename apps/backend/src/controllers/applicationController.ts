@@ -1,9 +1,10 @@
 import type { Response, NextFunction } from 'express';
 import { ApplicationService } from '../services/applicationService';
-import type {
-  CreateApplicationInput,
-  UpdateApplicationStatusInput,
-  QueryApplicationsInput,
+import {
+  queryApplicationsSchema,
+  type CreateApplicationInput,
+  type UpdateApplicationStatusInput,
+  type QueryApplicationsInput,
 } from '../validators/applicationValidators';
 import type { AuthRequest } from '../types';
 
@@ -139,7 +140,7 @@ export class ApplicationController {
   getMyApplications = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
       const studentId = req.user!.userId;
-      const query: QueryApplicationsInput = req.query as any;
+      const query = queryApplicationsSchema.parse(req.query);
 
       const result = await this.applicationService.getApplicationsByStudent(studentId, query);
 
@@ -176,7 +177,7 @@ export class ApplicationController {
       }
 
       const teacherId = req.user!.userId;
-      const query: QueryApplicationsInput = req.query as any;
+      const query = queryApplicationsSchema.parse(req.query);
 
       const result = await this.applicationService.getApplicationsByProject(
         projectId,
@@ -236,7 +237,7 @@ export class ApplicationController {
    */
   getAllApplications = async (req: AuthRequest, res: Response, next: NextFunction) => {
     try {
-      const query: QueryApplicationsInput = req.query as any;
+      const query = queryApplicationsSchema.parse(req.query);
 
       const result = await this.applicationService.getAllApplications(query);
 

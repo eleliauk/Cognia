@@ -16,14 +16,14 @@ export function MainLayout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background w-[1200px]">
       <Header onMenuToggle={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
       <div className="flex flex-1">
         <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
         {/* Main content area */}
-        <main className="flex-1 md:ml-64 flex flex-col">
+        <main className="flex-1 ml-60 mr-60 flex flex-col">
           <div className="flex-1 p-4 md:p-6">
             <Outlet />
           </div>

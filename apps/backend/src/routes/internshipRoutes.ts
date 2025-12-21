@@ -26,6 +26,9 @@ router.use(authMiddleware);
 
 // ==================== Internship Management ====================
 
+// Get my internships (for current user based on role)
+router.get('/', internshipController.getMyInternships.bind(internshipController));
+
 // Create internship
 router.post(
   '/',

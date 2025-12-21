@@ -327,6 +327,53 @@ export class InternshipService {
   }
 
   /**
+   * Get all internships (admin only)
+   */
+  async getAllInternships() {
+    const internships = await this.prisma.internship.findMany({
+      include: {
+        application: {
+          include: {
+            student: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
+            project: {
+              select: {
+                id: true,
+                title: true,
+                description: true,
+                teacher: {
+                  select: {
+                    id: true,
+                    name: true,
+                    email: true,
+                  },
+                },
+              },
+            },
+          },
+        },
+        milestones: {
+          orderBy: {
+            dueDate: 'asc',
+          },
+        },
+        documents: true,
+        evaluation: true,
+      },
+      orderBy: {
+        startDate: 'desc',
+      },
+    });
+
+    return internships;
+  }
+
+  /**
    * Update internship status
    */
   async updateStatus(internshipId: string, status: InternshipStatus) {
