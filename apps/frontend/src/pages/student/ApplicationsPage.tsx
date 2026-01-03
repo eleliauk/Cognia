@@ -152,7 +152,7 @@ export default function ApplicationsPage() {
   }
 
   return (
-    <div className="space-y-6 w-full">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -388,7 +388,7 @@ function StatsCard({ title, value, icon, active, onClick }: StatsCardProps) {
   return (
     <Card
       className={`cursor-pointer transition-all ${
-        active ? 'ring-2 ring-primary' : 'hover:shadow-md'
+        active ? 'ring-1 ring-blue-300' : 'hover:shadow-md'
       }`}
       onClick={onClick}
     >
