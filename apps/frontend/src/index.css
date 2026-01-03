@@ -1,4 +1,4 @@
-@import "../styles/globals.css";
+@import '../styles/globals.css';
 
 @layer base {
   :root {
@@ -12,12 +12,12 @@
 
 /* cool Bun background animation 😎 */
 body::before {
-  content: "";
+  content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
   opacity: 0.05;
-  background: url("./logo.svg");
+  background: url('./logo.svg');
   background-size: 256px;
   transform: rotate(-12deg) scale(1.35);
   animation: slide 30s linear infinite;
@@ -47,5 +47,17 @@ body::before {
   ::before,
   ::after {
     animation: none !important;
+  }
+}
+
+@layer utilities {
+  /* 隐藏滚动条 —— 兼容所有主流浏览器 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE 和 Edge */
+    scrollbar-width: none; /* Firefox */
   }
 }

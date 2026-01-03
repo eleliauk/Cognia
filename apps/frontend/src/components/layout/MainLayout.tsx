@@ -16,15 +16,15 @@ export function MainLayout() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background w-[1200px]">
+    <div className="min-h-screen flex flex-col bg-background w-screen">
       <Header onMenuToggle={toggleSidebar} isSidebarOpen={isSidebarOpen} />
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 w-full">
         <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
         {/* Main content area */}
-        <main className="flex-1 ml-60 mr-60 flex flex-col">
-          <div className="flex-1 p-4 md:p-6">
+        <main className="flex-1 flex flex-col items-center overflow-hidden">
+          <div className="w-full h-[calc(100vh-3.5rem)] p-4 md:p-6 overflow-y-auto">
             <Outlet />
           </div>
           <Footer />

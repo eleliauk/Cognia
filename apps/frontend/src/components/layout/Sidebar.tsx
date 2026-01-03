@@ -372,8 +372,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-14 z-30 h-[calc(100vh-3.5rem)] w-64 border-r bg-sidebar transition-transform duration-300 md:translate-x-0',
-          isOpen ? 'translate-x-0' : '-translate-x-full'
+          'w-[20%] h-[calc(100vh-3.5rem)] border-r bg-sidebar transition-transform duration-300 md:translate-x-0',
+          isOpen ? 'none' : 'block'
         )}
       >
         <nav className="flex flex-col gap-1 p-4">
