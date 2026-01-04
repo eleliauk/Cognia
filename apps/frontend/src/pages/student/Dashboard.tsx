@@ -280,8 +280,9 @@ function StatsCard({ title, value, description, icon, trend, linkTo }: StatsCard
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
-        {trend && <p className="text-xs text-primary mt-1">{trend}</p>}
+        <p className="text-xs text-muted-foreground">
+          {description} {trend && <span className="text-[0.7rem] mt-1 text-red-700">{trend}</span>}
+        </p>
       </CardContent>
     </Card>
   );

@@ -27,25 +27,55 @@ export class AuthService {
     // Hash password
     const passwordHash = await hashPassword(input.password);
 
-    // Create user
-    const user = await this.prisma.user.create({
-      data: {
-        email: input.email,
-        passwordHash,
-        name: input.name,
-        role: input.role,
-        phone: input.phone,
-      },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        phone: true,
-        avatar: true,
-        isActive: true,
-        createdAt: true,
-      },
+    // Create user with profile in a transaction
+    const user = await this.prisma.$transaction(async (tx) => {
+      // Create user
+      const newUser = await tx.user.create({
+        data: {
+          email: input.email,
+          passwordHash,
+          name: input.name,
+          role: input.role,
+          phone: input.phone,
+        },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+          phone: true,
+          avatar: true,
+          isActive: true,
+          createdAt: true,
+        },
+      });
+
+      // Create corresponding profile based on role
+      if (input.role === 'STUDENT') {
+        await tx.studentProfile.create({
+          data: {
+            userId: newUser.id,
+            studentNumber: `STU${Date.now()}`, // Generate temporary student number
+            major: '',
+            grade: 1,
+            gpa: 0,
+            skills: [],
+            researchInterests: [],
+            completeness: 0,
+          },
+        });
+      } else if (input.role === 'TEACHER') {
+        await tx.teacherProfile.create({
+          data: {
+            userId: newUser.id,
+            department: '',
+            title: '',
+            researchFields: [],
+          },
+        });
+      }
+
+      return newUser;
     });
 
     // Generate tokens

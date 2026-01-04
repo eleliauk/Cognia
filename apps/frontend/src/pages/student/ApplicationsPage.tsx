@@ -388,7 +388,7 @@ function StatsCard({ title, value, icon, active, onClick }: StatsCardProps) {
   return (
     <Card
       className={`cursor-pointer transition-all ${
-        active ? 'ring-2 ring-primary' : 'hover:shadow-md'
+        active ? 'ring-1 ring-blue-300' : 'hover:shadow-md'
       }`}
       onClick={onClick}
     >

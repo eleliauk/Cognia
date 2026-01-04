@@ -117,199 +117,208 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="space-y-2 pb-6">
-          <h1 className="text-2xl font-bold text-center">注册</h1>
-          <p className="text-muted-foreground text-center text-sm">创建您的账户</p>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>姓名</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="请输入姓名"
-                          className="pl-10"
-                          disabled={isSubmitting}
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <div className="min-h-screen flex items-center justify-center p-4 bg-cover bg-center bg-no-repeat font-serif">
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/30 w-screen h-screen" />
 
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>邮箱</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          type="email"
-                          placeholder="请输入邮箱地址"
-                          className="pl-10"
-                          disabled={isSubmitting}
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+      <div className="relative z-10 w-full max-w-md">
+        {/* Title */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">注册</h1>
+          <p className="text-white/90 text-lg drop-shadow">创建您的账户</p>
+        </div>
 
-              <FormField
-                control={form.control}
-                name="role"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>角色</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                      disabled={isSubmitting}
-                    >
+        {/* Form Card */}
+        <Card className="bg-white/10 backdrop-blur-md border-white/20 shadow-2xl">
+          <CardContent className="pt-6">
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="请选择角色" />
-                        </SelectTrigger>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+                          <Input
+                            placeholder="姓名"
+                            className="pl-11 h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                        </div>
                       </FormControl>
-                      <SelectContent>
-                        <SelectItem value="STUDENT">学生</SelectItem>
-                        <SelectItem value="TEACHER">教师</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>手机号（可选）</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          placeholder="请输入手机号"
-                          className="pl-10"
-                          disabled={isSubmitting}
-                          {...field}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+                          <Input
+                            type="email"
+                            placeholder="邮箱地址"
+                            className="pl-11 h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>密码</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder="请输入密码（至少8位，包含字母和数字）"
-                          className="pl-10 pr-10"
-                          disabled={isSubmitting}
-                          {...field}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                          tabIndex={-1}
-                        >
-                          {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="role"
+                  render={({ field }) => (
+                    <FormItem>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                        disabled={isSubmitting}
+                      >
+                        <FormControl>
+                          <SelectTrigger className="h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50">
+                            <SelectValue placeholder="选择角色" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="STUDENT">学生</SelectItem>
+                          <SelectItem value="TEACHER">教师</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
 
-              <FormField
-                control={form.control}
-                name="confirmPassword"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>确认密码</FormLabel>
-                    <FormControl>
-                      <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                        <Input
-                          type={showConfirmPassword ? 'text' : 'password'}
-                          placeholder="请再次输入密码"
-                          className="pl-10 pr-10"
-                          disabled={isSubmitting}
-                          {...field}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
-                          tabIndex={-1}
-                        >
-                          {showConfirmPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                          ) : (
-                            <Eye className="h-4 w-4" />
-                          )}
-                        </button>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+                          <Input
+                            placeholder="手机号（可选）"
+                            className="pl-11 h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
 
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    注册中...
-                  </>
-                ) : (
-                  '注册'
-                )}
-              </Button>
-            </form>
-          </Form>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+                          <Input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder="密码（至少8位，含字母和数字）"
+                            className="pl-11 pr-11 h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+                            tabIndex={-1}
+                          >
+                            {showPassword ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
 
-          <div className="mt-6 text-center text-sm">
-            <span className="text-muted-foreground">已有账号？</span>{' '}
-            <Link to="/login" className="text-primary hover:underline font-medium">
-              立即登录
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className="relative">
+                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-white/70" />
+                          <Input
+                            type={showConfirmPassword ? 'text' : 'password'}
+                            placeholder="确认密码"
+                            className="pl-11 pr-11 h-12 bg-white/20 border-white/30 text-white placeholder:text-white/60 focus:bg-transparent focus:border-white/50"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors"
+                            tabIndex={-1}
+                          >
+                            {showConfirmPassword ? (
+                              <EyeOff className="h-5 w-5" />
+                            ) : (
+                              <Eye className="h-5 w-5" />
+                            )}
+                          </button>
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-red-200" />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  className="w-full h-12 bg-orange-300/90 hover:bg-orange-300 text-gray-800 font-semibold text-base shadow-lg transition-all"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      注册中...
+                    </>
+                  ) : (
+                    '注册'
+                  )}
+                </Button>
+              </form>
+            </Form>
+
+            <div className="mt-6 text-center text-sm">
+              <span className="text-white/80">已有账号？</span>{' '}
+              <Link
+                to="/login"
+                className="text-orange-300 hover:text-orange-200 font-medium underline"
+              >
+                立即登录
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
